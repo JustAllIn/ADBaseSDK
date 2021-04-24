@@ -1,4 +1,4 @@
-package com.adbse;
+package com.adbase.sdk;
 
 import java.util.Map;
 

@@ -1,4 +1,4 @@
-package com.adbse;
+package com.adbase.sdk;
 
 public interface IAdBaseSDK {
 

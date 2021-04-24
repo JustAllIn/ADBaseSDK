@@ -1,4 +1,4 @@
-package com.adbse;
+package com.adbase.sdk;
 
 import retrofit2.Call;
 import retrofit2.Callback;
