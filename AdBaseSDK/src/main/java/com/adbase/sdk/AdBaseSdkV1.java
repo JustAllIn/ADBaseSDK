@@ -4,26 +4,26 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public enum  AdBaseSDKV1 implements IAdBaseSDK{
+enum AdBaseSdkV1 implements IAdBaseSDK {
 
-    Instance;
+    instance;
 
     private final ApiProxy mApiProxy;
 
     private String alive_id;    // TODO: 2021/4/24 在open接口请求成功后返回并缓存
 
 
-    AdBaseSDKV1() {
+    AdBaseSdkV1() {
         mApiProxy = new ApiProxy();
     }
 
     @Override
     public int open() {
-        mApiProxy.open(getSeatId(),getAppCRC())
+        mApiProxy.open(getSeatId(), getAppCRC())
                 .enqueue(new Callback<String>() {
                     @Override
                     public void onResponse(Call<String> call, Response<String> response) {
-                       alive_id  =  response.body();    // TODO: 2021/4/24 确定不需要解析吗
+                        alive_id = response.body();    // TODO: 2021/4/24 确定不需要解析吗
                     }
 
                     @Override
@@ -56,7 +56,7 @@ public enum  AdBaseSDKV1 implements IAdBaseSDK{
         final String type = ""; // TODO: 2021/4/24 ?
         final String name = ""; // TODO: 2021/4/24 ?
 
-        mApiProxy.join(alive_id,type,name)
+        mApiProxy.join(alive_id, type, name)
                 .enqueue(new Callback<String>() {
                     @Override
                     public void onResponse(Call<String> call, Response<String> response) {
@@ -76,7 +76,7 @@ public enum  AdBaseSDKV1 implements IAdBaseSDK{
         final String type = ""; // TODO: 2021/4/24 ?
         final String name = ""; // TODO: 2021/4/24 ?
 
-        mApiProxy.login(alive_id,type,name)
+        mApiProxy.login(alive_id, type, name)
                 .enqueue(new Callback<String>() {
                     @Override
                     public void onResponse(Call<String> call, Response<String> response) {
@@ -95,7 +95,7 @@ public enum  AdBaseSDKV1 implements IAdBaseSDK{
     public int logout() {
         final String type = ""; // TODO: 2021/4/24 ?
         final String name = ""; // TODO: 2021/4/24 ?
-        mApiProxy.login(alive_id,type,name)
+        mApiProxy.login(alive_id, type, name)
                 .enqueue(new Callback<String>() {
                     @Override
                     public void onResponse(Call<String> call, Response<String> response) {

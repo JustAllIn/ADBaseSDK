@@ -10,7 +10,7 @@ import retrofit2.http.QueryMap;
 /**
  * 管理 网络请求接口 定义
  */
-public interface AdBaseApi {
+interface AdBaseApi {
 
     /**
      * @return 目前的唯一接口
