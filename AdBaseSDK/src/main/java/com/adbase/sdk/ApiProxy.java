@@ -36,7 +36,7 @@ final class ApiProxy {
         getParams.put("ov", getOSVersion());
         // add more post params if need
 
-        return getApi().commonApi(postParams, AdBaseAuth.getAuth(getParams));
+        return getApi().commonApi(postParams, AdBaseAuth.addAuth(getParams));
     }
 
     /**
@@ -53,7 +53,7 @@ final class ApiProxy {
         getParams.put("di", getDeviceId());
         // add more post params if need
 
-        return getApi().commonApi(postParams, AdBaseAuth.getAuth(getParams));
+        return getApi().commonApi(postParams, AdBaseAuth.addAuth(getParams));
     }
 
     /**
@@ -74,7 +74,7 @@ final class ApiProxy {
         getParams.put("n", name);
         // add more post params if need
 
-        return getApi().commonApi(postParams, AdBaseAuth.getAuth(getParams));
+        return getApi().commonApi(postParams, AdBaseAuth.addAuth(getParams));
     }
 
 
@@ -96,7 +96,7 @@ final class ApiProxy {
         getParams.put("n", name);
         // add more post params if need
 
-        return getApi().commonApi(postParams, AdBaseAuth.getAuth(getParams));
+        return getApi().commonApi(postParams, AdBaseAuth.addAuth(getParams));
     }
 
     /**
@@ -115,7 +115,7 @@ final class ApiProxy {
         getParams.put("di", getDeviceId());
         // add more post params if need
 
-        return getApi().commonApi(postParams, AdBaseAuth.getAuth(getParams));
+        return getApi().commonApi(postParams, AdBaseAuth.addAuth(getParams));
     }
 
     /**
@@ -132,7 +132,7 @@ final class ApiProxy {
         getParams.put("di", getDeviceId());
         // add more post params if need
 
-        return getApi().commonApi(postParams, AdBaseAuth.getAuth(getParams));
+        return getApi().commonApi(postParams, AdBaseAuth.addAuth(getParams));
     }
 
 

@@ -18,12 +18,11 @@ final class AdBaseAuth {
      * @param source 原始的请求参数
      * @return 加上了健全结果之后的请求参数
      */
-    public static Map<String, String> getAuth(final Map<String, String> source) {
-        Map<String, String> copy = new HashMap<>(source);
+    public static Map<String, String> addAuth(final Map<String, String> source) {
         // 1.在当前请求的基础上加入&ts参数，value为当前时间戳
-        copy.put("ts", String.valueOf(System.currentTimeMillis()));
+        source.put("ts", String.valueOf(System.currentTimeMillis()));
         // 2.然后把url的参数列表按照key升序排序
-        Set<String> keys = copy.keySet();
+        Set<String> keys = source.keySet();
         String[] array = new String[keys.size()];
         array = keys.toArray(array);
         Arrays.sort(array);
@@ -33,11 +32,11 @@ final class AdBaseAuth {
             if (i != 0) {
                 stringBuilder.append("|");
             }
-            stringBuilder.append(copy.get(array[i]));
+            stringBuilder.append(source.get(array[i]));
         }
-        String result = stringBuilder.toString();
+        String valueString = stringBuilder.toString();
         // 4.用crc加密这串字符串
-        String auth = CRCUtil.getCRCString(result);
+        String auth = CRCUtil.getCRCString(valueString);
         // 5. 得到的值作为&tk参数，再追加到原有url上
         source.put("tk", auth);
         return source;
