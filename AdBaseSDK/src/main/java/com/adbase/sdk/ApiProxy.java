@@ -142,6 +142,9 @@ final class ApiProxy {
     }
 
 
+    /**
+     * @return lazy init retrofit
+     */
     private AdBaseApi getApi() {
         if (mApi == null) {
             Retrofit retrofit = new Retrofit.Builder()
