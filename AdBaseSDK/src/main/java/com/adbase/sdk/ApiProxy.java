@@ -23,8 +23,6 @@ final class ApiProxy {
      * @return request call
      */
     Call<String> open(final String seatId, final String crc) {
-        Map<String, String> postParams = new LinkedHashMap<>();
-        // add more post params if need
 
         Map<String, String> getParams = new LinkedHashMap<>();
         getParams.put("a", "o");
@@ -36,7 +34,7 @@ final class ApiProxy {
         getParams.put("ov", getOSVersion());
         // add more post params if need
 
-        return getApi().commonApi(postParams, AdBaseAuth.addAuth(getParams));
+        return getApi().commonApi(AdBaseAuth.addAuth(getParams));
     }
 
     /**
@@ -44,8 +42,6 @@ final class ApiProxy {
      * @return request call
      */
     Call<String> heartBeat(final String aliveId) {
-        Map<String, String> postParams = new LinkedHashMap<>();
-        // add more post params if need
 
         Map<String, String> getParams = new LinkedHashMap<>();
         getParams.put("a", "h");
@@ -53,7 +49,7 @@ final class ApiProxy {
         getParams.put("di", getDeviceId());
         // add more post params if need
 
-        return getApi().commonApi(postParams, AdBaseAuth.addAuth(getParams));
+        return getApi().commonApi(AdBaseAuth.addAuth(getParams));
     }
 
     /**
@@ -63,7 +59,6 @@ final class ApiProxy {
      * @return request call
      */
     Call<String> join(final String aliveId, final String type, final String name) {
-        Map<String, String> postParams = new LinkedHashMap<>();
         // add more post params if need
 
         Map<String, String> getParams = new LinkedHashMap<>();
@@ -74,7 +69,7 @@ final class ApiProxy {
         getParams.put("n", name);
         // add more post params if need
 
-        return getApi().commonApi(postParams, AdBaseAuth.addAuth(getParams));
+        return getApi().commonApi(AdBaseAuth.addAuth(getParams));
     }
 
 
@@ -85,8 +80,6 @@ final class ApiProxy {
      * @return request call
      */
     Call<String> login(final String aliveId, final String type, final String name) {
-        Map<String, String> postParams = new LinkedHashMap<>();
-        // add more post params if need
 
         Map<String, String> getParams = new LinkedHashMap<>();
         getParams.put("a", "li");
@@ -96,7 +89,7 @@ final class ApiProxy {
         getParams.put("n", name);
         // add more post params if need
 
-        return getApi().commonApi(postParams, AdBaseAuth.addAuth(getParams));
+        return getApi().commonApi(AdBaseAuth.addAuth(getParams));
     }
 
     /**
@@ -106,8 +99,6 @@ final class ApiProxy {
      * @return request call
      */
     Call<String> logout(final String aliveId, final String type, final String name) {
-        Map<String, String> postParams = new LinkedHashMap<>();
-        // add more post params if need
 
         Map<String, String> getParams = new LinkedHashMap<>();
         getParams.put("a", "lo");
@@ -115,7 +106,7 @@ final class ApiProxy {
         getParams.put("di", getDeviceId());
         // add more post params if need
 
-        return getApi().commonApi(postParams, AdBaseAuth.addAuth(getParams));
+        return getApi().commonApi(AdBaseAuth.addAuth(getParams));
     }
 
     /**
@@ -123,8 +114,6 @@ final class ApiProxy {
      * @return request call
      */
     Call<String> exit(final String aliveId) {
-        Map<String, String> postParams = new LinkedHashMap<>();
-        // add more post params if need
 
         Map<String, String> getParams = new LinkedHashMap<>();
         getParams.put("a", "e");
@@ -132,7 +121,7 @@ final class ApiProxy {
         getParams.put("di", getDeviceId());
         // add more post params if need
 
-        return getApi().commonApi(postParams, AdBaseAuth.addAuth(getParams));
+        return getApi().commonApi(AdBaseAuth.addAuth(getParams));
     }
 
 

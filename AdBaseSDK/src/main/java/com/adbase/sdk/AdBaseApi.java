@@ -3,7 +3,6 @@ package com.adbase.sdk;
 import java.util.Map;
 
 import retrofit2.Call;
-import retrofit2.http.FieldMap;
 import retrofit2.http.GET;
 import retrofit2.http.QueryMap;
 
@@ -17,7 +16,6 @@ interface AdBaseApi {
      */
     @GET("s.php")
     Call<String> commonApi(
-            @FieldMap Map<String, String> postParam,
             @QueryMap Map<String, String> getParam
     );
 }
