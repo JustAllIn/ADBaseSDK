@@ -58,10 +58,7 @@ enum AdBaseSdkV1 implements IAdBaseSDK {
     }
 
     @Override
-    public int join() {
-        final String type = ""; // TODO: 2021/4/24 ?
-        final String name = ""; // TODO: 2021/4/24 ?
-
+    public int join(String type, String name) {
         apiProxy.join(alive_id, type, name)
                 .enqueue(new Callback<String>() {
                     @Override
@@ -78,10 +75,7 @@ enum AdBaseSdkV1 implements IAdBaseSDK {
     }
 
     @Override
-    public int login() {
-        final String type = ""; // TODO: 2021/4/24 ?
-        final String name = ""; // TODO: 2021/4/24 ?
-
+    public int login(String type, String name) {
         apiProxy.login(alive_id, type, name)
                 .enqueue(new Callback<String>() {
                     @Override

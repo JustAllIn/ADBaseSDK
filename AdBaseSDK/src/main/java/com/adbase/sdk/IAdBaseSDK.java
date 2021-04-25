@@ -26,9 +26,9 @@ public interface IAdBaseSDK {
 
     int open();
 
-    int join();
+    int join(String type, String name);
 
-    int login();
+    int login(String type, String name);
 
     int logout();
 
