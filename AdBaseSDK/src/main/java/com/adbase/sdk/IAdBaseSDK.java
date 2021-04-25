@@ -1,5 +1,10 @@
 package com.adbase.sdk;
 
+/**
+ * 抽象的AdBaseSDK
+ * 外部通过{@link F#create(int)}方法获取SDK实例，并调用相关接口
+ * SDK内部控制具体的逻辑实现
+ */
 public interface IAdBaseSDK {
 
     /**

@@ -5,6 +5,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+/**
+ * 鉴权工具类
+ */
 final class AdBaseAuth {
 
     private AdBaseAuth() {
