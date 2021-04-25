@@ -38,7 +38,7 @@ enum AdBaseSdkV1 implements IAdBaseSDK {
         }
     };
 
-    private String alive_id;    // TODO: 2021/4/24 在open接口请求成功后返回并缓存
+    private String alive_id;    //在open接口请求成功后返回并缓存
     private HeartBeatHandler mHeartBeat;
     private CRCAssets crcAssets;
 
