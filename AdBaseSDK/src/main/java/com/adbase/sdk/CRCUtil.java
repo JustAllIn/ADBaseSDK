@@ -1,5 +1,7 @@
 package com.adbase.sdk;
 
+import java.util.zip.CRC32;
+
 final class CRCUtil {
 
     private CRCUtil() {
@@ -11,8 +13,11 @@ final class CRCUtil {
      * @return 加密后的字符串
      */
     public static String getCRCString(String source) {
-        String result = "";
-        // TODO: 2021/4/24 CRC加密
+        AdBaseLog.i("crc32 finish, source = " + source);
+        final CRC32 crc32 = new CRC32();
+        crc32.update(source.getBytes());
+        final String result = String.valueOf(crc32.getValue());
+        AdBaseLog.i("crc32 finish, result = " + result);
         return result;
     }
 
