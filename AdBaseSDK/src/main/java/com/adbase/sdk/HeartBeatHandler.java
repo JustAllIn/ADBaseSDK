@@ -29,6 +29,9 @@ class HeartBeatHandler extends Handler {
      * 开始心跳
      */
     public void start() {
+        if (this.hasMessages(EVENT_HEART_BEAT)) {
+            return;
+        }
         this.sendEmptyMessage(EVENT_HEART_BEAT);
     }
 
@@ -36,6 +39,10 @@ class HeartBeatHandler extends Handler {
      * 结束心跳
      */
     public void stop() {
+        if (!this.hasMessages(EVENT_HEART_BEAT)) {
+            return;
+        }
+
         this.removeMessages(EVENT_HEART_BEAT);
     }
 

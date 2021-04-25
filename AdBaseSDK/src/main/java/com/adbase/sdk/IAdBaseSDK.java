@@ -1,10 +1,10 @@
 package com.adbase.sdk;
 
-import android.content.Context;
+import android.app.Application;
 
 /**
  * 抽象的AdBaseSDK
- * 外部通过 {@link #create()} 方法获取SDK实例，并调用相关接口
+ * 外部通过 {@link IAdBaseSDK.F#create()} 方法获取SDK实例，并调用相关接口
  * SDK内部控制具体的逻辑实现
  */
 public interface IAdBaseSDK {
@@ -25,7 +25,7 @@ public interface IAdBaseSDK {
         }
     }
 
-    int open(Context context);
+    int open(Application application);
 
     int join(String type, String name);
 
@@ -33,6 +33,6 @@ public interface IAdBaseSDK {
 
     int logout();
 
-    int exit();
+    int exit(Application application);
 
 }

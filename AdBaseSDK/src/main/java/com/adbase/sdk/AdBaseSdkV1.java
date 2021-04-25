@@ -1,7 +1,6 @@
 package com.adbase.sdk;
 
 import android.app.Application;
-import android.content.Context;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -17,21 +16,47 @@ enum AdBaseSdkV1 implements IAdBaseSDK {
     instance;
 
     private final ApiProxy apiProxy;
+    private final ActivityLifeCircle mActivityLifecycleCallbacks = new ActivityLifeCircle() {
+        /**
+         * app回到前台
+         */
+        @Override
+        void onAppForeground() {
+            if (mHeartBeat != null) {
+                mHeartBeat.start();
+            }
+        }
+
+        /**
+         * app退到后台
+         */
+        @Override
+        void onAppBackground() {
+            if (mHeartBeat != null) {
+                mHeartBeat.stop();
+            }
+        }
+    };
 
     private String alive_id;    // TODO: 2021/4/24 在open接口请求成功后返回并缓存
     private HeartBeatHandler mHeartBeat;
     private CRCAssets crcAssets;
+
 
     AdBaseSdkV1() {
         apiProxy = new ApiProxy();
     }
 
     @Override
-    public int open(Context context) {
+    public int open(Application application) {
         if (crcAssets == null) {
             crcAssets = new CRCAssets();
-            crcAssets.init(context);
+            if (!crcAssets.init(application)) {
+                //初始化失败
+                return -1;
+            }
         }
+        application.registerActivityLifecycleCallbacks(mActivityLifecycleCallbacks);
 
         final String seatId = crcAssets.getSeatId();
         final String appCrc = crcAssets.getAppCrc();
@@ -40,24 +65,10 @@ enum AdBaseSdkV1 implements IAdBaseSDK {
                     @Override
                     public void onResponse(Call<String> call, Response<String> response) {
                         alive_id = response.body();    // TODO: 2021/4/24 确定不需要解析吗
-                        mHeartBeat = new HeartBeatHandler(alive_id, apiProxy);
+                        if (mHeartBeat == null) {
+                            mHeartBeat = new HeartBeatHandler(alive_id, apiProxy);
+                        }
                         mHeartBeat.start();
-                    }
-
-                    @Override
-                    public void onFailure(Call<String> call, Throwable t) {
-
-                    }
-                });
-        return 0;
-    }
-
-    private int heartbeat() {
-        apiProxy.heartBeat(alive_id)
-                .enqueue(new Callback<String>() {
-                    @Override
-                    public void onResponse(Call<String> call, Response<String> response) {
-
                     }
 
                     @Override
@@ -104,8 +115,6 @@ enum AdBaseSdkV1 implements IAdBaseSDK {
 
     @Override
     public int logout() {
-        final String type = ""; // TODO: 2021/4/24 ?
-        final String name = ""; // TODO: 2021/4/24 ?
         apiProxy.logout(alive_id)
                 .enqueue(new Callback<String>() {
                     @Override
@@ -122,7 +131,9 @@ enum AdBaseSdkV1 implements IAdBaseSDK {
     }
 
     @Override
-    public int exit() {
+    public int exit(Application application) {
+        application.unregisterActivityLifecycleCallbacks(mActivityLifecycleCallbacks);
+
         apiProxy.exit(alive_id)
                 .enqueue(new Callback<String>() {
                     @Override
