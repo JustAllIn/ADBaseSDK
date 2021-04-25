@@ -8,22 +8,24 @@ enum AdBaseSdkV1 implements IAdBaseSDK {
 
     instance;
 
-    private final ApiProxy mApiProxy;
+    private final ApiProxy apiProxy;
 
     private String alive_id;    // TODO: 2021/4/24 在open接口请求成功后返回并缓存
-
+    private HeartBeatHandler mHeartBeat;
 
     AdBaseSdkV1() {
-        mApiProxy = new ApiProxy();
+        apiProxy = new ApiProxy();
     }
 
     @Override
     public int open() {
-        mApiProxy.open(getSeatId(), getAppCRC())
+        apiProxy.open(getSeatId(), getAppCRC())
                 .enqueue(new Callback<String>() {
                     @Override
                     public void onResponse(Call<String> call, Response<String> response) {
                         alive_id = response.body();    // TODO: 2021/4/24 确定不需要解析吗
+                        mHeartBeat = new HeartBeatHandler(alive_id, apiProxy);
+                        mHeartBeat.start();
                     }
 
                     @Override
@@ -35,7 +37,7 @@ enum AdBaseSdkV1 implements IAdBaseSDK {
     }
 
     private int heartbeat() {
-        mApiProxy.heartBeat(alive_id)
+        apiProxy.heartBeat(alive_id)
                 .enqueue(new Callback<String>() {
                     @Override
                     public void onResponse(Call<String> call, Response<String> response) {
@@ -55,7 +57,7 @@ enum AdBaseSdkV1 implements IAdBaseSDK {
         final String type = ""; // TODO: 2021/4/24 ?
         final String name = ""; // TODO: 2021/4/24 ?
 
-        mApiProxy.join(alive_id, type, name)
+        apiProxy.join(alive_id, type, name)
                 .enqueue(new Callback<String>() {
                     @Override
                     public void onResponse(Call<String> call, Response<String> response) {
@@ -75,7 +77,7 @@ enum AdBaseSdkV1 implements IAdBaseSDK {
         final String type = ""; // TODO: 2021/4/24 ?
         final String name = ""; // TODO: 2021/4/24 ?
 
-        mApiProxy.login(alive_id, type, name)
+        apiProxy.login(alive_id, type, name)
                 .enqueue(new Callback<String>() {
                     @Override
                     public void onResponse(Call<String> call, Response<String> response) {
@@ -94,7 +96,7 @@ enum AdBaseSdkV1 implements IAdBaseSDK {
     public int logout() {
         final String type = ""; // TODO: 2021/4/24 ?
         final String name = ""; // TODO: 2021/4/24 ?
-        mApiProxy.logout(alive_id, type, name)
+        apiProxy.logout(alive_id, type, name)
                 .enqueue(new Callback<String>() {
                     @Override
                     public void onResponse(Call<String> call, Response<String> response) {
@@ -111,7 +113,7 @@ enum AdBaseSdkV1 implements IAdBaseSDK {
 
     @Override
     public int exit() {
-        mApiProxy.exit(alive_id)
+        apiProxy.exit(alive_id)
                 .enqueue(new Callback<String>() {
                     @Override
                     public void onResponse(Call<String> call, Response<String> response) {
