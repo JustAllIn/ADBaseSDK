@@ -95,7 +95,7 @@ enum AdBaseSdkV1 implements IAdBaseSDK {
     public int logout() {
         final String type = ""; // TODO: 2021/4/24 ?
         final String name = ""; // TODO: 2021/4/24 ?
-        apiProxy.logout(alive_id, type, name)
+        apiProxy.logout(alive_id)
                 .enqueue(new Callback<String>() {
                     @Override
                     public void onResponse(Call<String> call, Response<String> response) {
