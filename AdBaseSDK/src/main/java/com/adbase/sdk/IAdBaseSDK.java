@@ -21,8 +21,6 @@ public interface IAdBaseSDK {
 
     int open();
 
-    int heartbeat();
-
     int join();
 
     int login();

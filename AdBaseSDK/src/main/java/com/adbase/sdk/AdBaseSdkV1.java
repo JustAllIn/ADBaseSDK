@@ -34,8 +34,7 @@ enum AdBaseSdkV1 implements IAdBaseSDK {
         return 0;
     }
 
-    @Override
-    public int heartbeat() {
+    private int heartbeat() {
         mApiProxy.heartBeat(alive_id)
                 .enqueue(new Callback<String>() {
                     @Override
@@ -95,7 +94,7 @@ enum AdBaseSdkV1 implements IAdBaseSDK {
     public int logout() {
         final String type = ""; // TODO: 2021/4/24 ?
         final String name = ""; // TODO: 2021/4/24 ?
-        mApiProxy.login(alive_id, type, name)
+        mApiProxy.logout(alive_id, type, name)
                 .enqueue(new Callback<String>() {
                     @Override
                     public void onResponse(Call<String> call, Response<String> response) {
