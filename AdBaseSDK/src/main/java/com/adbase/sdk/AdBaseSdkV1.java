@@ -1,5 +1,8 @@
 package com.adbase.sdk;
 
+import android.app.Application;
+import android.content.Context;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -17,14 +20,22 @@ enum AdBaseSdkV1 implements IAdBaseSDK {
 
     private String alive_id;    // TODO: 2021/4/24 在open接口请求成功后返回并缓存
     private HeartBeatHandler mHeartBeat;
+    private CRCAssets crcAssets;
 
     AdBaseSdkV1() {
         apiProxy = new ApiProxy();
     }
 
     @Override
-    public int open() {
-        apiProxy.open(getSeatId(), getAppCRC())
+    public int open(Context context) {
+        if (crcAssets == null) {
+            crcAssets = new CRCAssets();
+            crcAssets.init(context);
+        }
+
+        final String seatId = crcAssets.getSeatId();
+        final String appCrc = crcAssets.getAppCrc();
+        apiProxy.open(seatId, appCrc)
                 .enqueue(new Callback<String>() {
                     @Override
                     public void onResponse(Call<String> call, Response<String> response) {
@@ -125,16 +136,5 @@ enum AdBaseSdkV1 implements IAdBaseSDK {
                     }
                 });
         return 0;
-    }
-
-
-    private String getAppCRC() {
-        // TODO: 2021/4/24 从哪儿来
-        return null;
-    }
-
-    private String getSeatId() {
-        // TODO: 2021/4/24 从哪儿来
-        return null;
     }
 }

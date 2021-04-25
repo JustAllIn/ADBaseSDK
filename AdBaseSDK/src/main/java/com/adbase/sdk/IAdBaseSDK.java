@@ -1,10 +1,10 @@
 package com.adbase.sdk;
 
-import android.app.Application;
+import android.content.Context;
 
 /**
  * 抽象的AdBaseSDK
- * 外部通过 {@link F#create(Application)} 方法获取SDK实例，并调用相关接口
+ * 外部通过 {@link #create()} 方法获取SDK实例，并调用相关接口
  * SDK内部控制具体的逻辑实现
  */
 public interface IAdBaseSDK {
@@ -18,16 +18,14 @@ public interface IAdBaseSDK {
          * 简单工厂方法，保留一定的拓展性
          * （虽然目前只有一个版本的SDK实现）
          *
-         * @param application application context
          * @return 获取SDK实例
          */
-        public static IAdBaseSDK create(Application application) {
-            DeviceInfo.application = application;
+        public static IAdBaseSDK create() {
             return AdBaseSdkV1.instance;
         }
     }
 
-    int open();
+    int open(Context context);
 
     int join(String type, String name);
 
