@@ -8,7 +8,7 @@ import android.util.Log;
 class AdBaseLog {
 
     private static final boolean DEBUG = true;
-
+    private static final String TAG = "adbase";
 
     /**
      * 日志打印
@@ -20,6 +20,6 @@ class AdBaseLog {
             return;
         }
 
-        Log.i("adbase", msg);
+        Log.i(TAG, msg);
     }
 }

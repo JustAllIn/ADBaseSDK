@@ -25,14 +25,43 @@ public interface IAdBaseSDK {
         }
     }
 
+    /**
+     * 启动sdk
+     *
+     * @param application 业务方应用application对象
+     * @return 0调用成功，-1调用失败
+     */
     int open(Application application);
 
+    /**
+     * ？
+     *
+     * @param type type
+     * @param name name
+     * @return 暂时没什么意义
+     */
     int join(String type, String name);
 
+    /**
+     * ？
+     *
+     * @param type type
+     * @param name name
+     * @return 暂时没什么意义
+     */
     int login(String type, String name);
 
+    /**
+     * ？
+     */
     int logout();
 
+    /**
+     * 释放sdk
+     *
+     * @param application 业务方应用application对象
+     * @return 暂时没什么意义
+     */
     int exit(Application application);
 
 }

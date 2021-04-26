@@ -57,16 +57,17 @@ class HeartBeatHandler extends Handler {
         }
 
         if (msg.what == EVENT_HEART_BEAT) {
+            AdBaseLog.i("heartbeat start");
             //接口请求发送心跳
             apiProxy.heartBeat(alive_id).enqueue(new retrofit2.Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-
+                    AdBaseLog.i("heartbeat ============> success");
                 }
 
                 @Override
                 public void onFailure(Call<ResponseBody> call, Throwable t) {
-
+                    AdBaseLog.i("heartbeat ============> error");
                 }
             });
             //60s后再发心跳

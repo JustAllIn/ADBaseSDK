@@ -42,6 +42,8 @@ final class AdBaseAuth {
         String auth = CRCUtil.getCRCString(valueString);
         // 5. 得到的值作为&tk参数，再追加到原有url上
         source.put("tk", auth);
+
+        AdBaseLog.i("full get parameters -> " + source);
         return source;
     }
 

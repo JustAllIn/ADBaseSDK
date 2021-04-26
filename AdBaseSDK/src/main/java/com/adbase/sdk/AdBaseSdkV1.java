@@ -17,9 +17,19 @@ import retrofit2.Response;
  */
 enum AdBaseSdkV1 implements IAdBaseSDK {
 
+    /**
+     * 枚举型单例
+     */
     instance;
 
-    private final ApiProxy apiProxy;
+    /**
+     * 网络接口请求代理
+     */
+    private final ApiProxy apiProxy = new ApiProxy();
+    ;
+    /**
+     * app生命周期监听
+     */
     private final ActivityLifeCycle mActivityLifecycleCallbacks = new ActivityLifeCycle() {
         /**
          * app回到前台
@@ -42,17 +52,24 @@ enum AdBaseSdkV1 implements IAdBaseSDK {
         }
     };
 
-    private String alive_id;    //在open接口请求成功后返回并缓存
+    /**
+     * 在open接口请求成功后返回并缓存
+     */
+    private String alive_id;
+    /**
+     * 心跳管理器
+     */
     private HeartBeatHandler mHeartBeat;
+    /**
+     * assets中的crc文件管理
+     */
     private CRCAssets crcAssets;
-
-
-    AdBaseSdkV1() {
-        apiProxy = new ApiProxy();
-    }
 
     @Override
     public int open(Application application) {
+        //静态缓存一个application对象
+        DeviceInfo.application = application;
+        //从assets里读取crc信息，读取失败则抛错return
         if (crcAssets == null) {
             crcAssets = new CRCAssets();
             if (!crcAssets.init(application)) {
@@ -60,8 +77,10 @@ enum AdBaseSdkV1 implements IAdBaseSDK {
                 return -1;
             }
         }
+        //注册生命周期监听
         application.registerActivityLifecycleCallbacks(mActivityLifecycleCallbacks);
 
+        //请求后端
         final String seatId = crcAssets.getSeatId();
         final String appCrc = crcAssets.getAppCrc();
         apiProxy.open(seatId, appCrc)

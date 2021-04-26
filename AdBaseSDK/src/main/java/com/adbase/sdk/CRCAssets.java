@@ -28,6 +28,8 @@ public class CRCAssets {
             while ((line = bufReader.readLine()) != null) {
                 assetCRCInfo.add(line);
             }
+
+            AdBaseLog.i("assets/crc content -> " + assetCRCInfo);
             return true;
         } catch (Exception e) {
             e.printStackTrace();
