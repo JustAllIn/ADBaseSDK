@@ -16,7 +16,7 @@ enum AdBaseSdkV1 implements IAdBaseSDK {
     instance;
 
     private final ApiProxy apiProxy;
-    private final ActivityLifeCircle mActivityLifecycleCallbacks = new ActivityLifeCircle() {
+    private final ActivityLifeCycle mActivityLifecycleCallbacks = new ActivityLifeCycle() {
         /**
          * app回到前台
          */

@@ -7,7 +7,12 @@ import android.os.Bundle;
 /**
  * 监听app前后台切换
  */
-public abstract class ActivityLifeCircle implements Application.ActivityLifecycleCallbacks {
+public abstract class ActivityLifeCycle implements Application.ActivityLifecycleCallbacks {
+
+    /**
+     * activity计数
+     */
+    private int activityCount;
 
     @Override
     public void onActivityCreated(Activity activity, Bundle bundle) {
@@ -16,7 +21,10 @@ public abstract class ActivityLifeCircle implements Application.ActivityLifecycl
 
     @Override
     public void onActivityStarted(Activity activity) {
-
+        if (activityCount == 0) { //后台切换到前台
+            onAppForeground();
+        }
+        activityCount++;
     }
 
     @Override
@@ -31,7 +39,10 @@ public abstract class ActivityLifeCircle implements Application.ActivityLifecycl
 
     @Override
     public void onActivityStopped(Activity activity) {
-
+        activityCount--;
+        if (activityCount == 0) { //前台切换到后台
+            onAppBackground();
+        }
     }
 
     @Override
