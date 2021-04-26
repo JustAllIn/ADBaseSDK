@@ -1,7 +1,6 @@
 package com.adbase.sdk;
 
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
@@ -43,7 +42,7 @@ final class AdBaseAuth {
         // 5. 得到的值作为&tk参数，再追加到原有url上
         source.put("tk", auth);
 
-        AdBaseLog.i("full get parameters -> " + source);
+        X.log.i("full get parameters -> " + source);
         return source;
     }
 

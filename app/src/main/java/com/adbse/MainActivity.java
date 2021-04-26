@@ -3,21 +3,26 @@ package com.adbse;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.adbase.sdk.IAdBaseSDK;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements IAdBaseSDK.ILogPrinter {
 
-    IAdBaseSDK mSDK;    //随便怎么获取，都行，sdk内部目前是单例实现
+    private final StringBuilder mLogBuilder = new StringBuilder();
+    private final IAdBaseSDK mSDK = IAdBaseSDK.F.create();    //随便怎么获取，都行，sdk内部目前是单例实现
+
+    private TextView mTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        mSDK = IAdBaseSDK.F.create();   //随便怎么获取，都行，sdk内部目前是单例实现
+        mTextView = findViewById(R.id.tv_log);
+        mSDK.setLogger(this);
     }
 
     public void invokeSDKOpen(View view) {
@@ -50,6 +55,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void saveLog(View view) {
+        // TODO: 2021/4/27 复制日志到剪贴板 并保存到sd卡
+    }
 
+    @Override
+    public void log(String msg) {
+        Log.i("demo", msg);
+        mLogBuilder.append(msg).append("\n");
+        mTextView.setText(mLogBuilder.toString());
     }
 }

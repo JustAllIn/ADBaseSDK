@@ -65,6 +65,14 @@ enum AdBaseSdkV1 implements IAdBaseSDK {
      */
     private CRCAssets crcAssets;
 
+    /**
+     * @param printer 日志打印
+     */
+    @Override
+    public void setLogger(ILogPrinter printer) {
+        X.log.log.setPrinter(printer);
+    }
+
     @Override
     public int open(Application application) {
         //静态缓存一个application对象
@@ -91,7 +99,7 @@ enum AdBaseSdkV1 implements IAdBaseSDK {
                             String result = response.body().string();
                             String[] spilt = result.split("\\|");
                             alive_id = spilt[1];
-                            AdBaseLog.i("open接口请求成功: response = " + result + ",解析得到alive_id = " + alive_id);
+                            X.log.log.i("open接口请求成功: response = " + result + ",解析得到alive_id = " + alive_id);
                         } catch (IOException e) {
                             e.printStackTrace();
                         }

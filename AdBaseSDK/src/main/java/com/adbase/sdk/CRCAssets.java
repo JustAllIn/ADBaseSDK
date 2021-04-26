@@ -29,7 +29,7 @@ public class CRCAssets {
                 assetCRCInfo.add(line);
             }
 
-            AdBaseLog.i("assets/crc content -> " + assetCRCInfo);
+            X.log.i("assets/crc content -> " + assetCRCInfo);
             return true;
         } catch (Exception e) {
             e.printStackTrace();

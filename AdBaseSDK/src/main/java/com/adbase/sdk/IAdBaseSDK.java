@@ -25,6 +25,15 @@ public interface IAdBaseSDK {
         }
     }
 
+    interface ILogPrinter {
+        void log(String msg);
+    }
+
+    /**
+     * @param printer 日志打印
+     */
+    void setLogger(ILogPrinter printer);
+
     /**
      * 启动sdk
      *

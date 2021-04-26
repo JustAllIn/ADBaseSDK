@@ -22,11 +22,11 @@ public abstract class ActivityLifeCycle implements Application.ActivityLifecycle
     @Override
     public void onActivityStarted(Activity activity) {
         if (activityCount == 0) { //后台切换到前台
-            AdBaseLog.i("onAppForeground -> activity count = " + activityCount);
+            X.log.i("onAppForeground -> activity count = " + activityCount);
             onAppForeground();
         }
         activityCount++;
-        AdBaseLog.i("life cycle callback -> activity count = " + activityCount);
+        X.log.i("life cycle callback -> activity count = " + activityCount);
     }
 
     @Override
@@ -41,10 +41,10 @@ public abstract class ActivityLifeCycle implements Application.ActivityLifecycle
 
     @Override
     public void onActivityStopped(Activity activity) {
-        AdBaseLog.i("life cycle callback -> activity count = " + activityCount);
+        X.log.i("life cycle callback -> activity count = " + activityCount);
         activityCount--;
         if (activityCount == 0) { //前台切换到后台
-            AdBaseLog.i("onAppBackground -> activity count = " + activityCount);
+            X.log.i("onAppBackground -> activity count = " + activityCount);
             onAppBackground();
         }
     }
