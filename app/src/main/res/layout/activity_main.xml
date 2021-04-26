@@ -70,12 +70,19 @@
         tools:text="log area" />
 
     <LinearLayout
-        app:layout_constraintTop_toTopOf="@+id/tv_log"
-        app:layout_constraintEnd_toEndOf="@+id/tv_log"
-        android:layout_margin="4dp"
-        android:orientation="vertical"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_margin="12dp"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <TextView
+            android:padding="8dp"
+            android:text="log options"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
 
         <Button
             android:onClick="saveLog"
