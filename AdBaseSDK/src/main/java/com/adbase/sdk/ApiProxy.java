@@ -4,6 +4,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import okhttp3.OkHttpClient;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 
@@ -22,7 +23,7 @@ final class ApiProxy {
      * @param crc    read from assets
      * @return request call
      */
-    Call<String> open(final String seatId, final String crc) {
+    Call<ResponseBody> open(final String seatId, final String crc) {
 
         Map<String, String> getParams = new LinkedHashMap<>();
         getParams.put("a", "o");
@@ -41,7 +42,7 @@ final class ApiProxy {
      * @param aliveId get from api-open
      * @return request call
      */
-    Call<String> heartBeat(final String aliveId) {
+    Call<ResponseBody> heartBeat(final String aliveId) {
 
         Map<String, String> getParams = new LinkedHashMap<>();
         getParams.put("a", "h");
@@ -58,7 +59,7 @@ final class ApiProxy {
      * @param name    ?
      * @return request call
      */
-    Call<String> join(final String aliveId, final String type, final String name) {
+    Call<ResponseBody> join(final String aliveId, final String type, final String name) {
         // add more post params if need
 
         Map<String, String> getParams = new LinkedHashMap<>();
@@ -79,7 +80,7 @@ final class ApiProxy {
      * @param name    ?
      * @return request call
      */
-    Call<String> login(final String aliveId, final String type, final String name) {
+    Call<ResponseBody> login(final String aliveId, final String type, final String name) {
 
         Map<String, String> getParams = new LinkedHashMap<>();
         getParams.put("a", "li");
@@ -96,7 +97,7 @@ final class ApiProxy {
      * @param aliveId get from api-open
      * @return request call
      */
-    Call<String> logout(final String aliveId) {
+    Call<ResponseBody> logout(final String aliveId) {
 
         Map<String, String> getParams = new LinkedHashMap<>();
         getParams.put("a", "lo");
@@ -111,7 +112,7 @@ final class ApiProxy {
      * @param aliveId get from api-open
      * @return request call
      */
-    Call<String> exit(final String aliveId) {
+    Call<ResponseBody> exit(final String aliveId) {
 
         Map<String, String> getParams = new LinkedHashMap<>();
         getParams.put("a", "e");

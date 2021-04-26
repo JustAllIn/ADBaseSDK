@@ -2,6 +2,9 @@ package com.adbase.sdk;
 
 import android.app.Application;
 
+import java.io.IOException;
+
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -61,10 +64,9 @@ enum AdBaseSdkV1 implements IAdBaseSDK {
         final String seatId = crcAssets.getSeatId();
         final String appCrc = crcAssets.getAppCrc();
         apiProxy.open(seatId, appCrc)
-                .enqueue(new Callback<String>() {
+                .enqueue(new Callback<ResponseBody>() {
                     @Override
-                    public void onResponse(Call<String> call, Response<String> response) {
-                        alive_id = response.body();    // TODO: 2021/4/24 确定不需要解析吗
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                         if (mHeartBeat == null) {
                             mHeartBeat = new HeartBeatHandler(alive_id, apiProxy);
                         }
@@ -72,7 +74,7 @@ enum AdBaseSdkV1 implements IAdBaseSDK {
                     }
 
                     @Override
-                    public void onFailure(Call<String> call, Throwable t) {
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
 
                     }
                 });
@@ -82,14 +84,14 @@ enum AdBaseSdkV1 implements IAdBaseSDK {
     @Override
     public int join(String type, String name) {
         apiProxy.join(alive_id, type, name)
-                .enqueue(new Callback<String>() {
+                .enqueue(new Callback<ResponseBody>() {
                     @Override
-                    public void onResponse(Call<String> call, Response<String> response) {
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
 
                     }
 
                     @Override
-                    public void onFailure(Call<String> call, Throwable t) {
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
 
                     }
                 });
@@ -99,14 +101,14 @@ enum AdBaseSdkV1 implements IAdBaseSDK {
     @Override
     public int login(String type, String name) {
         apiProxy.login(alive_id, type, name)
-                .enqueue(new Callback<String>() {
+                .enqueue(new Callback<ResponseBody>() {
                     @Override
-                    public void onResponse(Call<String> call, Response<String> response) {
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
 
                     }
 
                     @Override
-                    public void onFailure(Call<String> call, Throwable t) {
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
 
                     }
                 });
@@ -116,14 +118,14 @@ enum AdBaseSdkV1 implements IAdBaseSDK {
     @Override
     public int logout() {
         apiProxy.logout(alive_id)
-                .enqueue(new Callback<String>() {
+                .enqueue(new Callback<ResponseBody>() {
                     @Override
-                    public void onResponse(Call<String> call, Response<String> response) {
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
 
                     }
 
                     @Override
-                    public void onFailure(Call<String> call, Throwable t) {
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
 
                     }
                 });
@@ -135,14 +137,14 @@ enum AdBaseSdkV1 implements IAdBaseSDK {
         application.unregisterActivityLifecycleCallbacks(mActivityLifecycleCallbacks);
 
         apiProxy.exit(alive_id)
-                .enqueue(new Callback<String>() {
+                .enqueue(new Callback<ResponseBody>() {
                     @Override
-                    public void onResponse(Call<String> call, Response<String> response) {
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
 
                     }
 
                     @Override
-                    public void onFailure(Call<String> call, Throwable t) {
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
 
                     }
                 });
