@@ -39,14 +39,6 @@ class DeviceInfo {
      */
     @SuppressLint({"MissingPermission", "HardwareIds"})
     public static String getDeviceId() {
-        try {
-            TelephonyManager tm = (TelephonyManager) application.getSystemService(Context.TELEPHONY_SERVICE);
-            if (tm != null) {
-                return tm.getDeviceId();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return "";
+        return "";  // TODO: 2021/4/27 IMEI现在不让获取了
     }
 }
