@@ -1,6 +1,7 @@
 package com.adbase.sdk;
 
 import android.app.Application;
+import android.text.TextUtils;
 
 import java.io.IOException;
 
@@ -67,10 +68,21 @@ enum AdBaseSdkV1 implements IAdBaseSDK {
                 .enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                        if (mHeartBeat == null) {
-                            mHeartBeat = new HeartBeatHandler(alive_id, apiProxy);
+                        try {
+                            String result = response.body().string();
+                            String[] spilt = result.split("\\|");
+                            alive_id = spilt[1];
+                            AdBaseLog.i("open接口请求成功: response = " + result + ",解析得到alive_id = " + alive_id);
+                        } catch (IOException e) {
+                            e.printStackTrace();
                         }
-                        mHeartBeat.start();
+
+                        if (!TextUtils.isEmpty(alive_id)) {
+                            if (mHeartBeat == null) {
+                                mHeartBeat = new HeartBeatHandler(alive_id, apiProxy);
+                            }
+                            mHeartBeat.start();
+                        }
                     }
 
                     @Override
