@@ -48,4 +48,8 @@ public class MainActivity extends AppCompatActivity {
     public void invokeSDKExit(View view) {
         IAdBaseSDK.F.create().exit(getApplication());
     }
+
+    public void saveLog(View view) {
+
+    }
 }
