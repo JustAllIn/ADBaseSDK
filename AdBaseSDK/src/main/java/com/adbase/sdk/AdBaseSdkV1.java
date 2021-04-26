@@ -70,7 +70,7 @@ enum AdBaseSdkV1 implements IAdBaseSDK {
      */
     @Override
     public void setLogger(ILogPrinter printer) {
-        X.log.log.setPrinter(printer);
+        X.log.setPrinter(printer);
     }
 
     @Override
@@ -99,7 +99,7 @@ enum AdBaseSdkV1 implements IAdBaseSDK {
                             String result = response.body().string();
                             String[] spilt = result.split("\\|");
                             alive_id = spilt[1];
-                            X.log.log.i("open接口请求成功: response = " + result + ",解析得到alive_id = " + alive_id);
+                            X.log.i("open接口请求成功: response = " + result + ",解析得到alive_id = " + alive_id);
                         } catch (IOException e) {
                             e.printStackTrace();
                         }

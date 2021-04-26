@@ -55,10 +55,6 @@ public class MainActivity extends AppCompatActivity implements IAdBaseSDK.ILogPr
         IAdBaseSDK.F.create().exit(getApplication());
     }
 
-    public void saveLog(View view) {
-        // TODO: 2021/4/27 复制日志到剪贴板 并保存到sd卡
-    }
-
     @Override
     public void log(String msg) {
         Log.i("demo", msg);
@@ -68,5 +64,13 @@ public class MainActivity extends AppCompatActivity implements IAdBaseSDK.ILogPr
         if (offset > textView.getHeight()) {
             textView.scrollTo(0, offset - textView.getHeight());
         }
+    }
+
+    public void saveLog(View view) {
+        // TODO: 2021/4/27 复制日志到剪贴板 并保存到sd卡
+    }
+
+    public void clearLog(View view) {
+        textView.setText("");
     }
 }

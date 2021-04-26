@@ -11,7 +11,7 @@
         android:id="@+id/opt_area"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
+        android:layout_margin="12dp"
         android:orientation="vertical"
         android:gravity="center_horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -59,24 +59,35 @@
         android:background="#77ffffff"
         android:id="@+id/tv_log"
         android:padding="8dp"
-        android:layout_margin="8dp"
+        android:layout_margin="12dp"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:scrollbars="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/opt_area"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="log area" />
 
-    <Button
-        android:layout_marginBottom="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <LinearLayout
+        app:layout_constraintTop_toTopOf="@+id/tv_log"
         app:layout_constraintEnd_toEndOf="@+id/tv_log"
-        app:layout_constraintStart_toStartOf="@+id/tv_log"
-        android:onClick="saveLog"
-        android:text="save log"
-        android:scrollbars="vertical"
+        android:layout_margin="4dp"
+        android:orientation="vertical"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content">
+
+        <Button
+            android:onClick="saveLog"
+            android:text="save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <Button
+            android:onClick="clearLog"
+            android:text="clear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
