@@ -3,6 +3,7 @@ package com.adbse;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
@@ -12,16 +13,16 @@ import com.adbase.sdk.IAdBaseSDK;
 
 public class MainActivity extends AppCompatActivity implements IAdBaseSDK.ILogPrinter {
 
-    private final StringBuilder mLogBuilder = new StringBuilder();
     private final IAdBaseSDK mSDK = IAdBaseSDK.F.create();    //随便怎么获取，都行，sdk内部目前是单例实现
 
-    private TextView mTextView;
+    private TextView textView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mTextView = findViewById(R.id.tv_log);
+        textView = findViewById(R.id.tv_log);
+        textView.setMovementMethod(ScrollingMovementMethod.getInstance());
         mSDK.setLogger(this);
     }
 
@@ -61,7 +62,11 @@ public class MainActivity extends AppCompatActivity implements IAdBaseSDK.ILogPr
     @Override
     public void log(String msg) {
         Log.i("demo", msg);
-        mLogBuilder.append(msg).append("\n");
-        mTextView.setText(mLogBuilder.toString());
+        textView.append(msg);
+        textView.append("\n\n");
+        int offset = textView.getLineCount() * textView.getLineHeight();
+        if (offset > textView.getHeight()) {
+            textView.scrollTo(0, offset - textView.getHeight());
+        }
     }
 }

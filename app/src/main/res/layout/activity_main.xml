@@ -56,8 +56,10 @@
     </LinearLayout>
 
     <TextView
+        android:background="#77ffffff"
         android:id="@+id/tv_log"
-        android:padding="16dp"
+        android:padding="8dp"
+        android:layout_margin="8dp"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -73,6 +75,7 @@
         app:layout_constraintStart_toStartOf="@+id/tv_log"
         android:onClick="saveLog"
         android:text="save log"
+        android:scrollbars="vertical"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
