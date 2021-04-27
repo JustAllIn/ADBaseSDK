@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity implements IAdBaseSDK.ILogPr
         Log.i("demo", msg);
 
         @SuppressLint("SimpleDateFormat")
-        String time = new SimpleDateFormat("hh:mm:ss").format(new Date(System.currentTimeMillis())))
+        String time = new SimpleDateFormat("hh:mm:ss").format(new Date(System.currentTimeMillis()));
         textView.append("[");
         textView.append(time);
         textView.append("]");
