@@ -53,6 +53,11 @@ enum AdBaseSdkV1 implements IAdBaseSDK {
     };
 
     /**
+     * 是否被初始化
+     */
+    private boolean isInit;
+
+    /**
      * 在open接口请求成功后返回并缓存
      */
     private String alive_id;
@@ -63,7 +68,7 @@ enum AdBaseSdkV1 implements IAdBaseSDK {
     /**
      * assets中的crc文件管理
      */
-    private CRCAssets crcAssets;
+    private final CRCAssets crcAssets = new CRCAssets();
 
     /**
      * @param printer 日志打印
@@ -73,20 +78,30 @@ enum AdBaseSdkV1 implements IAdBaseSDK {
         X.log.setPrinter(printer);
     }
 
+    /**
+     * @param application 业务方应用application对象
+     */
     @Override
-    public int open(Application application) {
+    public int init(Application application) {
         //静态缓存一个application对象
         DeviceInfo.application = application;
         //从assets里读取crc信息，读取失败则抛错return
-        if (crcAssets == null) {
-            crcAssets = new CRCAssets();
-            if (!crcAssets.init(application)) {
-                //初始化失败
-                return -1;
-            }
+        if (!crcAssets.init(application)) {
+            //初始化失败
+            return -1;
         }
         //注册生命周期监听
         application.registerActivityLifecycleCallbacks(mActivityLifecycleCallbacks);
+        isInit = true;
+        return 0;
+    }
+
+
+    @Override
+    public int open() {
+        if (!isInit) {
+            return -1;
+        }
 
         //请求后端
         final String seatId = crcAssets.getSeatId();
@@ -124,7 +139,7 @@ enum AdBaseSdkV1 implements IAdBaseSDK {
 
     @Override
     public int join(String type, String name) {
-        if (TextUtils.isEmpty(alive_id)) {
+        if (!isInit) {
             return -1;
         }
 
@@ -154,7 +169,7 @@ enum AdBaseSdkV1 implements IAdBaseSDK {
 
     @Override
     public int login(String type, String name) {
-        if (TextUtils.isEmpty(alive_id)) {
+        if (!isInit) {
             return -1;
         }
 
@@ -184,7 +199,7 @@ enum AdBaseSdkV1 implements IAdBaseSDK {
 
     @Override
     public int logout() {
-        if (TextUtils.isEmpty(alive_id)) {
+        if (!isInit) {
             return -1;
         }
         X.log.i("[api]======>logout : start, alive_id = " + alive_id);
@@ -209,8 +224,7 @@ enum AdBaseSdkV1 implements IAdBaseSDK {
 
     @Override
     public int exit(Application application) {
-        application.unregisterActivityLifecycleCallbacks(mActivityLifecycleCallbacks);
-        if (TextUtils.isEmpty(alive_id)) {
+        if (!isInit) {
             return -1;
         }
         X.log.i("[api]======>exit : start, alive_id = " + alive_id);
@@ -232,4 +246,18 @@ enum AdBaseSdkV1 implements IAdBaseSDK {
                 });
         return 0;
     }
+
+    /**
+     * @param application 业务方应用application对象
+     * @return release
+     */
+    @Override
+    public int release(Application application) {
+        application.unregisterActivityLifecycleCallbacks(mActivityLifecycleCallbacks);
+        mHeartBeat.stop();
+        mHeartBeat = null;
+        isInit = false;
+        return 0;
+    }
+
 }

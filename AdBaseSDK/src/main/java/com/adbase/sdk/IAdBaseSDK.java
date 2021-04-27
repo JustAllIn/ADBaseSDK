@@ -35,12 +35,16 @@ public interface IAdBaseSDK {
     void setLogger(ILogPrinter printer);
 
     /**
+     * @param application 业务方应用application对象
+     */
+    int init(Application application);
+
+    /**
      * 启动sdk
      *
-     * @param application 业务方应用application对象
      * @return 0调用成功，-1调用失败
      */
-    int open(Application application);
+    int open();
 
     /**
      * ？
@@ -73,4 +77,10 @@ public interface IAdBaseSDK {
      */
     int exit(Application application);
 
+
+    /**
+     * @param application 业务方应用application对象
+     * @return release
+     */
+    int release(Application application);
 }
