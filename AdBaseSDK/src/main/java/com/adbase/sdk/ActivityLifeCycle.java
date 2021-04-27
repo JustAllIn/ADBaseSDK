@@ -7,7 +7,7 @@ import android.os.Bundle;
 /**
  * 监听app前后台切换
  */
-public abstract class ActivityLifeCycle implements Application.ActivityLifecycleCallbacks {
+ abstract class ActivityLifeCycle implements Application.ActivityLifecycleCallbacks {
 
     /**
      * activity计数

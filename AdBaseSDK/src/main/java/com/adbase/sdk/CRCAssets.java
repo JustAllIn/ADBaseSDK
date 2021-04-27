@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * 从asset/crc文件里读取一些必要的信息并缓存
  */
-public class CRCAssets {
+ class CRCAssets {
 
     private static final String FILENAME = "crc";
     private final List<String> assetCRCInfo = new ArrayList<>();
