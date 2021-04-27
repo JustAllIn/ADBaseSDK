@@ -123,7 +123,7 @@ enum AdBaseSdkV1 implements IAdBaseSDK {
     @Override
     public int join(String type, String name) {
         if(TextUtils.isEmpty(alive_id)){
-            retrun -1;
+            return -1;
         }
         
         if(TextUtils.isEmpty(type)||TextUtils.isEmpty(name)){
@@ -148,7 +148,7 @@ enum AdBaseSdkV1 implements IAdBaseSDK {
     @Override
     public int login(String type, String name) {
         if(TextUtils.isEmpty(alive_id)){
-            retrun -1;
+            return -1;
         }
 
         if(TextUtils.isEmpty(type)||TextUtils.isEmpty(name)){
@@ -173,7 +173,7 @@ enum AdBaseSdkV1 implements IAdBaseSDK {
     @Override
     public int logout() {
         if(TextUtils.isEmpty(alive_id)){
-            retrun -1;
+            return -1;
         }
         
         apiProxy.logout(alive_id)
@@ -195,7 +195,7 @@ enum AdBaseSdkV1 implements IAdBaseSDK {
     public int exit(Application application) {
         application.unregisterActivityLifecycleCallbacks(mActivityLifecycleCallbacks);
         if(TextUtils.isEmpty(alive_id)){
-            retrun -1;
+            return -1;
         }
         apiProxy.exit(alive_id)
                 .enqueue(new Callback<ResponseBody>() {
