@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.os.Environment;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.View;
@@ -12,6 +13,8 @@ import android.widget.Toast;
 
 import com.adbase.sdk.IAdBaseSDK;
 
+import java.io.File;
+import java.io.FileWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -77,7 +80,19 @@ public class MainActivity extends AppCompatActivity implements IAdBaseSDK.ILogPr
     }
 
     public void saveLog(View view) {
-        // TODO: 2021/4/27 复制日志到剪贴板 并保存到sd卡
+        File file = new File(Environment.getExternalStorageDirectory() + "/wzzyylog");
+        if (file.exists() || file.mkdir()) {
+            String content = textView.getText().toString();
+            String path = file.getAbsolutePath() + "/log_" + System.currentTimeMillis() + ".txt";
+            try {
+                FileWriter writer = new FileWriter(path);
+                writer.flush();
+                writer.write(content);
+                writer.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     public void clearLog(View view) {
