@@ -2,6 +2,7 @@ package com.adbse;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
@@ -10,6 +11,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.adbase.sdk.IAdBaseSDK;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class MainActivity extends AppCompatActivity implements IAdBaseSDK.ILogPrinter {
 
@@ -58,8 +62,14 @@ public class MainActivity extends AppCompatActivity implements IAdBaseSDK.ILogPr
     @Override
     public void log(String msg) {
         Log.i("demo", msg);
+
+        @SuppressLint("SimpleDateFormat")
+        String time = new SimpleDateFormat("hh:mm:ss").format(new Date(System.currentTimeMillis())))
+        textView.append("[");
+        textView.append(time);
+        textView.append("]");
         textView.append(msg);
-        textView.append("\n\n");
+        textView.append("\n");
         int offset = textView.getLineCount() * textView.getLineHeight();
         if (offset > textView.getHeight()) {
             textView.scrollTo(0, offset - textView.getHeight());
