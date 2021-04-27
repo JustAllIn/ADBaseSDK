@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.Application;
 import android.content.Context;
 import android.os.Build;
+import android.provider.Settings;
 import android.telephony.TelephonyManager;
 
 /**
@@ -39,6 +40,15 @@ class DeviceInfo {
      */
     @SuppressLint({"MissingPermission", "HardwareIds"})
     public static String getDeviceId() {
-        return "";  // TODO: 2021/4/27 IMEI现在不让获取了
+        try {
+            if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P) {
+                return ((TelephonyManager) application.getSystemService(Context.TELEPHONY_SERVICE)).getDeviceId();      //Android 9及以下可以尝试获取IMEI
+            } else {
+                return Settings.Secure.getString(application.getContentResolver(), Settings.Secure.ANDROID_ID); //Android 10以上官方建议用Android id代替
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "unknown";
     }
 }
