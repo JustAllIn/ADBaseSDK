@@ -14,7 +14,7 @@ import retrofit2.Response;
  */
 class HeartBeatHandler extends Handler {
 
-    private static final long HEART_BEAT_GAP = 60 * 1000;
+    private static final long HEART_BEAT_GAP = 6 * 1000;   //心跳间隔
     private static final int EVENT_HEART_BEAT = 59;
 
     private final WeakReference<ApiProxy> weakReference;
