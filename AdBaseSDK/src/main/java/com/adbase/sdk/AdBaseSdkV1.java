@@ -91,6 +91,8 @@ enum AdBaseSdkV1 implements IAdBaseSDK {
         //请求后端
         final String seatId = crcAssets.getSeatId();
         final String appCrc = crcAssets.getAppCrc();
+
+        X.log.i("[api]======>open : start, seatId = " + seatId + ",appCrc = " + appCrc);
         apiProxy.open(seatId, appCrc)
                 .enqueue(new Callback<ResponseBody>() {
                     @Override
@@ -99,7 +101,7 @@ enum AdBaseSdkV1 implements IAdBaseSDK {
                             String result = response.body().string();
                             String[] spilt = result.split("\\|");
                             alive_id = spilt[1];
-                            X.log.i("open接口请求成功: response = " + result + ",解析得到alive_id = " + alive_id);
+                            X.log.i("[api]======>open  success: response = " + result + ",解析得到alive_id = " + alive_id);
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
@@ -114,7 +116,7 @@ enum AdBaseSdkV1 implements IAdBaseSDK {
 
                     @Override
                     public void onFailure(Call<ResponseBody> call, Throwable t) {
-
+                        X.log.i("[api]======>open  failed: t = " + t.getMessage());
                     }
                 });
         return 0;
@@ -122,24 +124,29 @@ enum AdBaseSdkV1 implements IAdBaseSDK {
 
     @Override
     public int join(String type, String name) {
-        if(TextUtils.isEmpty(alive_id)){
+        if (TextUtils.isEmpty(alive_id)) {
             return -1;
         }
-        
-        if(TextUtils.isEmpty(type)||TextUtils.isEmpty(name)){
-            return -2;   
+
+        if (TextUtils.isEmpty(type) || TextUtils.isEmpty(name)) {
+            return -2;
         }
-        
+
+        X.log.i("[api]======>join : start, alive_id = " + alive_id);
         apiProxy.join(alive_id, type, name)
                 .enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-
+                        try {
+                            X.log.i("[api]======>join : success, result = " + response.body().string());
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                     }
 
                     @Override
                     public void onFailure(Call<ResponseBody> call, Throwable t) {
-
+                        X.log.i("[api]======>join : failed, t = " + t.getMessage());
                     }
                 });
         return 0;
@@ -147,24 +154,29 @@ enum AdBaseSdkV1 implements IAdBaseSDK {
 
     @Override
     public int login(String type, String name) {
-        if(TextUtils.isEmpty(alive_id)){
+        if (TextUtils.isEmpty(alive_id)) {
             return -1;
         }
 
-        if(TextUtils.isEmpty(type)||TextUtils.isEmpty(name)){
-            return -2;   
+        if (TextUtils.isEmpty(type) || TextUtils.isEmpty(name)) {
+            return -2;
         }
-        
+
+        X.log.i("[api]======>login : start, alive_id = " + alive_id + ",type = " + type + ",name = " + name);
         apiProxy.login(alive_id, type, name)
                 .enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-
+                        try {
+                            X.log.i("[api]======>login : success, result = " + response.body().string());
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                     }
 
                     @Override
                     public void onFailure(Call<ResponseBody> call, Throwable t) {
-
+                        X.log.i("[api]======>login : failed, t = " + t.getMessage());
                     }
                 });
         return 0;
@@ -172,20 +184,24 @@ enum AdBaseSdkV1 implements IAdBaseSDK {
 
     @Override
     public int logout() {
-        if(TextUtils.isEmpty(alive_id)){
+        if (TextUtils.isEmpty(alive_id)) {
             return -1;
         }
-        
+        X.log.i("[api]======>logout : start, alive_id = " + alive_id);
         apiProxy.logout(alive_id)
                 .enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-
+                        try {
+                            X.log.i("[api]======>logout : success, result = " + response.body().string());
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                     }
 
                     @Override
                     public void onFailure(Call<ResponseBody> call, Throwable t) {
-
+                        X.log.i("[api]======>logout : failed, t = " + t.getMessage());
                     }
                 });
         return 0;
@@ -194,19 +210,24 @@ enum AdBaseSdkV1 implements IAdBaseSDK {
     @Override
     public int exit(Application application) {
         application.unregisterActivityLifecycleCallbacks(mActivityLifecycleCallbacks);
-        if(TextUtils.isEmpty(alive_id)){
+        if (TextUtils.isEmpty(alive_id)) {
             return -1;
         }
+        X.log.i("[api]======>exit : start, alive_id = " + alive_id);
         apiProxy.exit(alive_id)
                 .enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-
+                        try {
+                            X.log.i("[api]======>exit : success, result = " + response.body().string());
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                     }
 
                     @Override
                     public void onFailure(Call<ResponseBody> call, Throwable t) {
-
+                        X.log.i("[api]======>exit : failed, t = " + t.getMessage());
                     }
                 });
         return 0;

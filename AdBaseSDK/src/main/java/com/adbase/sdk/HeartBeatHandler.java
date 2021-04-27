@@ -56,7 +56,7 @@ class HeartBeatHandler extends Handler {
         }
 
         if (msg.what == EVENT_HEART_BEAT) {
-            X.log.i("heartbeat start");
+            X.log.i("heartbeat ============> start");
             //接口请求发送心跳
             apiProxy.heartBeat(alive_id).enqueue(new retrofit2.Callback<ResponseBody>() {
                 @Override
